@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.28307.902
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "test-liqutech-ng2-databinding-01", "test-liqutech-ng2-databinding-01.csproj", "{FB16608B-8C7A-4BF4-8123-8DF2B749C531}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{FB16608B-8C7A-4BF4-8123-8DF2B749C531}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FB16608B-8C7A-4BF4-8123-8DF2B749C531}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FB16608B-8C7A-4BF4-8123-8DF2B749C531}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FB16608B-8C7A-4BF4-8123-8DF2B749C531}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {071D2E10-8F7E-4A5F-B4C6-F5197DF21595}
+	EndGlobalSection
+EndGlobal
