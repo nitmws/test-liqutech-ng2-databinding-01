@@ -33,6 +33,12 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="LiquidTechnologies.XmlObjects.NewsML-Power2-27, Version=17.1.0.0, Culture=neutral, PublicKeyToken=64bee40f6e1c14f0, processorArchitecture=MSIL">
+      <HintPath>packages\LiquidTechnologies.XmlObjects.NewsML-Power2-27.17.1.0\lib\net45\LiquidTechnologies.XmlObjects.NewsML-Power2-27.dll</HintPath>
+    </Reference>
+    <Reference Include="LiquidTechnologies.XmlObjects.Runtime, Version=17.1.0.9428, Culture=neutral, PublicKeyToken=64bee40f6e1c14f0, processorArchitecture=MSIL">
+      <HintPath>packages\LiquidTechnologies.XmlObjects.Runtime.17.1.0\lib\net45\LiquidTechnologies.XmlObjects.Runtime.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -51,6 +57,7 @@
     <None Include=".gitignore" />
     <None Include="App.config" />
     <None Include="LICENSE" />
+    <None Include="packages.config" />
     <None Include="README.md" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
