@@ -149,8 +149,22 @@ namespace test_liqutech_ng2_databinding_01
             // Adding contentSet
             ContentSetElm contentSet = new ContentSetElm();
 
-            // (create the XML tree outside the NewsML-G2 schema
-            XElement nitf = new XElement("nitf", new XText("Text of the news"));
+            // (create the XML tree outside the NewsML-G2 schema - in the IPTC NITF namespace
+            XNamespace nitfNs = "http://iptc.org/std/NITF/2006-10-18/";
+            XElement nitf = new XElement(nitfNs + "nitf",
+                new XElement(nitfNs + "body",
+                    new XElement(nitfNs + "body.head",
+                        new XElement(nitfNs + "hedline",
+                            new XElement(nitfNs + "hl1", new XText("Fed to halt QE to avert \"bubble\""))
+                        ),
+                        new XElement(nitfNs + "byline", new XText("By Meredith Jameson, Staff Reporter"))
+                    ),
+                    new XElement(nitfNs + "body.content",
+                      new XElement(nitfNs + "p", new XText("(New York, NY - October 21) Et, sent luptat luptat, commy Nim zzriureet vendreetue modo etc")),
+                      new XElement(nitfNs + "p", new XText("Ugiating ea feugait utat, venim velent nim quis nulluptat num Volorem inci enim dolobor eetuer sendre ercin utpatio dolorpercing"))
+                    )
+                )
+            );
           
             ContentSetElm.InlineXMLElm inlineXml = new ContentSetElm.InlineXMLElm();
             inlineXml.AnyElement = nitf; 

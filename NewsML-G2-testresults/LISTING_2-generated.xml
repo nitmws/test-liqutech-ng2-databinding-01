@@ -42,7 +42,20 @@
   </contentMeta>
   <contentSet>
     <inlineXML>
-      <nitf xmlns="">Text of the news</nitf>
+      <nitf xmlns="http://iptc.org/std/NITF/2006-10-18/">
+        <body>
+          <body.head>
+            <hedline>
+              <hl1>Fed to halt QE to avert "bubble"</hl1>
+            </hedline>
+            <byline>By Meredith Jameson, Staff Reporter</byline>
+          </body.head>
+          <body.content>
+            <p>(New York, NY - October 21) Et, sent luptat luptat, commy Nim zzriureet vendreetue modo etc</p>
+            <p>Ugiating ea feugait utat, venim velent nim quis nulluptat num Volorem inci enim dolobor eetuer sendre ercin utpatio dolorpercing</p>
+          </body.content>
+        </body>
+      </nitf>
     </inlineXML>
   </contentSet>
 </newsItem>
