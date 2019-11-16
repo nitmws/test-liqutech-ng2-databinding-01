@@ -1,6 +1,6 @@
 # test-liqutech-ng2-databinding-01
 
-This is a Visual Studio (2017) Console App for testing the Liquid Technologies Liquid XML Objects [package for the NewsML-G2 version 2.27 schema](https://www.liquid-technologies.com/Reference/xml-objects/library/NewsML-Power/2-27).
+This is a Visual Studio (2017) Console App for testing the [Liquid Technologies Liquid XML Objects](https://www.liquid-technologies.com/xml-objects) package for the [NewsML-G2 version 2.27 schema](https://www.liquid-technologies.com/Reference/xml-objects/library/NewsML-Power/2-27).
 
 This package is based on the XML schema of the [IPTC standard NewsML-G2](https://iptc.org/standards/newsml-g2/), in particular on [version 2.27](https://www.iptc.org/std/NewsML-G2/2.27/specification/NewsML-G2_2.27-spec-All-Power.xsd)
 
