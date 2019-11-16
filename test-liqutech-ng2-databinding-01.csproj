@@ -62,7 +62,9 @@
     <None Include="README.md" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="NewsML-G2-referenceExamples\LISTING_2_NewsML-G2_Text_Document.xml" />
+    <Content Include="NewsML-G2-referenceExamples\LISTING_2-modPower_NewsML-G2_Text_Document.xml">
+      <SubType>Designer</SubType>
+    </Content>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

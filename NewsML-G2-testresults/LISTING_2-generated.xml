@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Created with Liquid XML Objects - Unlicensed trial - For evaluation only - https://www.liquid-technologies.com/ -->
+<newsItem xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" standard="NewsML-G2" standardversion="2.27" conformance="power" guid="urn:newsml:acmenews.com:20161121:US-FINANCE-FED" version="11" xmlns="http://iptc.org/std/nar/2006-10-01/">
+  <catalogRef href="http://www.iptc.org/std/catalog/catalog.IPTC-G2-Standards_30.xml" />
+  <catalogRef href="http://catalog.acmenews.com/news/ANM_G2_CODES_2.xml" />
+  <rightsInfo>
+    <copyrightHolder uri="http://www.acmenews.com/about.html#copyright">
+      <name>Acme News and Media LLC</name>
+    </copyrightHolder>
+    <copyrightNotice>Copyright 2016-17 Acme News and Media LLC</copyrightNotice>
+  </rightsInfo>
+  <itemMeta>
+    <itemClass qcode="ninat:text" />
+    <provider uri="http://www.acmenews.com/about/" />
+    <versionCreated>2017-11-21T16:25:32-05:00</versionCreated>
+    <pubStatus qcode="stat:usable" />
+  </itemMeta>
+  <contentMeta>
+    <contentCreated>2016-11-21T15:21:06-05:00</contentCreated>
+    <contentModified>2017-11-21T16:22:45-05:00</contentModified>
+    <located qcode="geoloc:NYC">
+      <name>New York, NY</name>
+    </located>
+    <infoSource qcode="is:AP">
+      <name>Associcate Press</name>
+    </infoSource>
+    <creator uri="http://www.acmenews.com/staff/mjameson">
+      <name>Meredith Jameson</name>
+    </creator>
+    <language tag="en-US" />
+    <subject qcode="medtop:04000000">
+      <name>economy, business and finance</name>
+    </subject>
+    <subject qcode="medtop:20000350">
+      <name>central bank</name>
+    </subject>
+    <subject qcode="medtop:20000379">
+      <name>money and monetary policy</name>
+    </subject>
+    <slugline>US-Finance-Fed</slugline>
+    <headline>Fed to halt QE to avert "bubble"</headline>
+  </contentMeta>
+  <contentSet>
+    <inlineXML>
+      <nitf xmlns="">Text of the news</nitf>
+    </inlineXML>
+  </contentSet>
+</newsItem>
