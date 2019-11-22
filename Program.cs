@@ -3,11 +3,15 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.IO;
+using System.Xml;
 using System.Xml.Linq;
 using System.Xml.Schema;
 using LiquidTechnologies.XmlObjects;
+using LiquidTechnologies.XmlObjects.NewsMLPower227;
 using LiquidTechnologies.XmlObjects.NewsMLPower227.NsA;
 using LiquidTechnologies.XmlObjects.NewsMLPower227.TnsA;
+using LiquidTechnologies.XmlObjects.NewsMLPower227.Tns;
+using LiquidTechnologies.XmlObjects.NewsMLPower227.Xs;
 
 namespace test_liqutech_ng2_databinding_01
 {
@@ -666,6 +670,7 @@ namespace test_liqutech_ng2_databinding_01
             {
                 serializer1.Serialize(sw, newsItem);
                 Console.WriteLine(sw.ToString());
+                // ValidateNG2newsItem(sw.ToString()); // calling it throws an exception
             }
 
             using (StreamWriter outputSw = new StreamWriter(Path.Combine(testOutputDir, "test04-generated.xml")))
@@ -677,5 +682,31 @@ namespace test_liqutech_ng2_databinding_01
 
         } // Test04
 
+        private static void ValidateNG2newsItem(string serializedNG2)
+        {
+            // executing the line below throws an exeption: the XsdValidator needs more data (maybe of the XML Schema)
+            LiquidTechnologies.XmlObjects.NewsMLPower227.XsdValidator validator = new LiquidTechnologies.XmlObjects.NewsMLPower227.XsdValidator();
+            using (XmlReader validatingReader = validator.CreateValidatingReader(serializedNG2, ValidatingReaderErrorHandler))
+            {
+                LxSerializer<NewsItemElm> serializer = new LxSerializer<NewsItemElm>();
+                LxReaderSettings lxReaderSettings = new LxReaderSettings()
+                {
+                    ErrorHandler = LxErrorHandler
+                };
+                NewsItemElm newsItemElm = serializer.Deserialize(validatingReader, lxReaderSettings);
+                
+            }
+
+        }
+   
+        private static void ValidatingReaderErrorHandler(object sender, ValidationEventArgs e)
+        {
+            Console.WriteLine($".Net XSD Validator : {e.Severity} : {e.Message}");
+        }
+
+        private static void LxErrorHandler(string msg, LxErrorSeverity severity, LxErrorCode errorCode, TextLocation location, object targetObject)
+        {
+            Console.WriteLine($"Liquid XML Objects Validator : {severity} : {msg}");
+        }
     }
 }
