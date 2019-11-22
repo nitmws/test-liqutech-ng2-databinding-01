@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.IO;
 using System.Xml.Linq;
+using System.Xml.Schema;
 using LiquidTechnologies.XmlObjects;
 using LiquidTechnologies.XmlObjects.NewsMLPower227.NsA;
 using LiquidTechnologies.XmlObjects.NewsMLPower227.TnsA;
@@ -13,6 +14,7 @@ namespace test_liqutech_ng2_databinding_01
     class Program
     {
         private static int defaultTestno = 1;
+        private static string testOutputDir =  @"..\..\NewsML-G2-testresults"; 
 
         static void Main(string[] args)
         {
@@ -42,6 +44,9 @@ namespace test_liqutech_ng2_databinding_01
                     case 3:
                         Test03();
                         break;
+                    case 4:
+                        Test04();
+                        break;
                     default:
                         Test01();
                         break;
@@ -62,7 +67,7 @@ namespace test_liqutech_ng2_databinding_01
 
         /// <summary>
         /// Generates a NewsItem complying to the reference example LISTING_2-modPower_NewsML-G2_Text_Document.xml.
-        /// The sequense of generating nodes/elements follows the sequence in the example XML document.
+        /// The sequence of generating nodes/elements follows the sequence in the example XML document.
         /// </summary>
         private static void Test01()
         {
@@ -146,7 +151,7 @@ namespace test_liqutech_ng2_databinding_01
             Flex1PartyPropTypeCt infoSource = new Flex1PartyPropTypeCt();
             infoSource.Qcode = "is:AP";
             name = new ConceptNameTypeCt();
-            name.Value = "Associcate Press";
+            name.Value = "Associcated Press";
             infoSource.Name.Add(name);
             contentMeta.InfoSource.Add(infoSource);
 
@@ -219,7 +224,7 @@ namespace test_liqutech_ng2_databinding_01
                 serializer1.Serialize(sw, newsItem);
                 Console.WriteLine(sw.ToString());
             }
-            using (StreamWriter outputSw = new StreamWriter(Path.Combine(@"..\..\NewsML-G2-testresults", "test01-LISTING_2-generated.xml")))
+            using (StreamWriter outputSw = new StreamWriter(Path.Combine(testOutputDir, "test01-LISTING_2-generated.xml")))
             {
                 serializer1.Serialize(outputSw, newsItem);
                 Console.WriteLine("!! Test results file test01-LISTING_2-generated.xml was generated");
@@ -230,7 +235,7 @@ namespace test_liqutech_ng2_databinding_01
 
         /// <summary>
         /// Generates a NewsItem complying to the reference example LISTING_2-modPower_NewsML-G2_Text_Document.xml.
-        /// The sequense of generating nodes/elements DOES NOT follow the sequence in the example XML document.
+        /// The sequence of generating nodes/elements DOES NOT follow the sequence in the example XML document.
         /// </summary>
         private static void Test02()
         {
@@ -340,7 +345,7 @@ namespace test_liqutech_ng2_databinding_01
             Flex1PartyPropTypeCt infoSource = new Flex1PartyPropTypeCt();
             infoSource.Qcode = "is:AP";
             name = new ConceptNameTypeCt();
-            name.Value = "Associcate Press";
+            name.Value = "Associcated Press";
             infoSource.Name.Add(name);
             contentMeta.InfoSource.Add(infoSource);
 
@@ -389,7 +394,7 @@ namespace test_liqutech_ng2_databinding_01
                 serializer1.Serialize(sw, newsItem);
                 Console.WriteLine(sw.ToString());
             }
-            using (StreamWriter outputSw = new StreamWriter(Path.Combine(@"..\..\NewsML-G2-testresults", "test02-LISTING_2-generated.xml")))
+            using (StreamWriter outputSw = new StreamWriter(Path.Combine(testOutputDir, "test02-LISTING_2-generated.xml")))
             {
                 serializer1.Serialize(outputSw, newsItem);
                 Console.WriteLine("!! Test results file test02-LISTING_2-generated.xml was generated");
@@ -484,7 +489,7 @@ namespace test_liqutech_ng2_databinding_01
             Flex1PartyPropTypeCt infoSource = new Flex1PartyPropTypeCt();
             infoSource.Qcode = "is:AP";
             name = new ConceptNameTypeCt();
-            name.Value = "Associcate Press";
+            name.Value = "Associcated Press";
             infoSource.Name.Add(name);
             contentMeta.InfoSource.Add(infoSource);
 
@@ -514,10 +519,10 @@ namespace test_liqutech_ng2_databinding_01
             // Adding an empty contentSet wrapper
             ContentSetElm contentSet = new ContentSetElm();
 
-            // 2nd round of metadata activities:
-            // remove a subect from contentMeta
+            // TEST: 2nd round of metadata activities:
+            // remove a subject from contentMeta
             newsItem.ContentMeta.Subject.RemoveAt(0);
-            // Now add contentMeta properties
+            // TEST: Now add contentMeta properties
             subject = new SubjectElm();
             subject.Qcode = "medtop:20000350";
             name = new ConceptNameTypeCt();
@@ -532,7 +537,7 @@ namespace test_liqutech_ng2_databinding_01
             subject.Name.Add(name);
             newsItem.ContentMeta.Subject.Add(subject);
 
-            // Now add itemMeta properties
+            // TEST: Now add itemMeta properties
             BlockTypeCt edNote = new BlockTypeCt();
             edNote.Value = "Hello, dear NewsML-G2 testers. We hope you enjoy the results.";
 
@@ -545,7 +550,7 @@ namespace test_liqutech_ng2_databinding_01
                 serializer1.Serialize(sw, newsItem);
                 Console.WriteLine(sw.ToString());
             }
-            using (StreamWriter outputSw = new StreamWriter(Path.Combine(@"..\..\NewsML-G2-testresults", "test03-generated.xml")))
+            using (StreamWriter outputSw = new StreamWriter(Path.Combine(testOutputDir, "test03-generated.xml")))
             {
                 serializer1.Serialize(outputSw, newsItem);
                 Console.WriteLine("!! Test results file test03-generated.xml was generated");
@@ -554,6 +559,123 @@ namespace test_liqutech_ng2_databinding_01
 
         } // Test03
 
+        /// <summary>
+        /// Generates a NewsItem based on the reference example LISTING_2-modPower_NewsML-G2_Text_Document.xml.
+        /// It tests a) adding element from an "other" namespace to itemMeta and contentMeta
+        /// and b) adding the <itemClass> element to the contentMeta where it must not exist by the NewsML-G2 XML schema.
+        /// </summary>
+        private static void Test04()
+        {
+            // Generic variables
+            Exception ex1;
+            LxDateTime lxdt;
+            ConceptNameTypeCt name;
+            TruncatedDateTimeTypeUnion dtvaltdtt;
+
+            NewsItemElm newsItem = new NewsItemElm();
+            newsItem.Standard = "NewsML-G2";
+            newsItem.Standardversion = "2.27";
+            newsItem.Guid = "urn:newsml:acmenews.com:20161121:US-FINANCE-FED";
+            newsItem.Version = 11;
+            newsItem.Conformance = "power";
+
+            // Adding 2 catalogRef-s:
+            CatalogRefElm catalogRef = new CatalogRefElm();
+            catalogRef.Href = "http://www.iptc.org/std/catalog/catalog.IPTC-G2-Standards_30.xml";
+            newsItem.CatalogRef.Add(catalogRef);
+
+            // Adding rightsInfo - bubble up
+            CopyrightHolderElm copyrightHolder = new CopyrightHolderElm();
+            copyrightHolder.Uri = "http://www.acmenews.com/about.html#copyright";
+            name = new ConceptNameTypeCt();
+            name.Value = "Acme News and Media LLC";
+            copyrightHolder.Name.Add(name);
+            CopyrightNoticeElm copyrightNotice = new CopyrightNoticeElm();
+            copyrightNotice.Add("Copyright 2016-17 Acme News and Media LLC");
+            RightsInfoTypeCt rightsInfo = new RightsInfoTypeCt();
+            rightsInfo.CopyrightHolder = copyrightHolder;
+            rightsInfo.CopyrightNotice.Add(copyrightNotice);
+            newsItem.RightsInfo.Add(rightsInfo);
+
+            // Adding itemMeta properties
+            newsItem.ItemMeta.ItemClass.Qcode = "ninat:text";
+            lxdt = LxDateTime.CreateDateTime(2017, 11, 21, 16, 25, 32, 0, 0, 0, -5, 0);
+            newsItem.ItemMeta.VersionCreated.Value = lxdt;
+            newsItem.ItemMeta.Provider.Uri = "http://www.acmenews.com/about/";
+
+            QualPropTypeCt pubStatus = new QualPropTypeCt();
+            pubStatus.Qcode = "stat:usable";
+            newsItem.ItemMeta.PubStatus = pubStatus;
+
+            // TEST: create an element in an "other" namespace and add it to the extension point of itemMeta
+            XNamespace specdNs = "http://example.org/ns/specialdata01";
+            XElement specdAlarm1 = new XElement(specdNs + "alarm", new XText("This news item should be published instantly"));
+            newsItem.ItemMeta.AnyElement.Add(specdAlarm1);
+
+            // Adding contentMeta properties
+            ContentMetadataAfDTypeCt contentMeta = new ContentMetadataAfDTypeCt(); // = the wrapper
+
+            if (LxDateTime.TryParseXSDDateTime("2016-11-21T15:21:06-05:00", out lxdt, out ex1))
+            {
+                TruncatedDateTimePropTypeCt contentCreated = new TruncatedDateTimePropTypeCt();
+                dtvaltdtt = new TruncatedDateTimeTypeUnion(lxdt);
+                contentCreated.Value = dtvaltdtt;
+                contentMeta.ContentCreated = contentCreated;
+            }
+
+            if (LxDateTime.TryParseXSDDateTime("2017-11-21T16:22:45-05:00", out lxdt, out ex1))
+            {
+                TruncatedDateTimePropTypeCt contentModified = new TruncatedDateTimePropTypeCt();
+                dtvaltdtt = new TruncatedDateTimeTypeUnion(lxdt);
+                contentModified.Value = dtvaltdtt;
+                contentMeta.ContentModified = contentModified;
+            }
+
+
+            HeadlineElm headline = new HeadlineElm();
+            headline.Value = "Testing, testing, testing";
+            contentMeta.Headline.Add(headline);
+
+            // TEST: create an element in an "other" namespace and add it to the extension point of contentMeta
+            XNamespace addldNs = "http://example.org/ns/additionaldata01";
+            XElement addldHeadline = new XElement(addldNs + "ourHeadline", new XText("Look at this special news item"));
+            contentMeta.AnyElement.Add(addldHeadline);
+
+            // TEST: create an element defined as child of itemMeta and try to add it to the extension point of contentMeta
+            // Attempt 1:
+            ItemClassElm itemClassWrong1 = new ItemClassElm();
+            itemClassWrong1.Qcode = "blabla:anything";
+            // contentMeta.AnyElement.Add(itemClassWrong1); // this line of code cannot be compiled, wrong data type
+
+            // Attempt 2: build the <itemClass> as generic XElement
+            XNamespace narNs = "http://iptc.org/std/nar/2006-10-01/";
+            XElement itemClassWrong2 = new XElement(narNs + "itemClass", new XAttribute("qcode","blabla:anything"));
+            // the line of code below generates an <itemClass> element as child of <contentMeta>: this is invalid by the NewsML-G2 schema
+            contentMeta.AnyElement.Add(itemClassWrong2); 
+
+            // finally: add the filled contentMeta instance to the newsItem
+            newsItem.ContentMeta = contentMeta;
+
+            // Adding an empty contentSet
+            ContentSetElm contentSet = new ContentSetElm();
+            newsItem.ContentSet = contentSet;
+
+            // final action of the test procedure: serialized the XML document and create an output
+            LxSerializer<NewsItemElm> serializer1 = new LxSerializer<NewsItemElm>();
+            using (StringWriter sw = new StringWriter())
+            {
+                serializer1.Serialize(sw, newsItem);
+                Console.WriteLine(sw.ToString());
+            }
+
+            using (StreamWriter outputSw = new StreamWriter(Path.Combine(testOutputDir, "test04-generated.xml")))
+            {
+                serializer1.Serialize(outputSw, newsItem);
+                Console.WriteLine("!! Test results file test04-generated.xml was generated");
+            }
+            Console.WriteLine("!!!!! Test04 closes");
+
+        } // Test04
 
     }
 }
